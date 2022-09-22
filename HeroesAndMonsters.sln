@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroesAndMonsters.Common", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroesAndMonsters.Data.Models", "HeroesAndMonsters.Data.Models\HeroesAndMonsters.Data.Models.csproj", "{1D702328-B1F2-485F-BD38-079973AD8CA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroesAndMonsters.Engine", "HeroesAndMonsters.Engine\HeroesAndMonsters.Engine.csproj", "{3017F3DD-09AF-40A1-97E6-93CB4829B9E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{1D702328-B1F2-485F-BD38-079973AD8CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D702328-B1F2-485F-BD38-079973AD8CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D702328-B1F2-485F-BD38-079973AD8CA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3017F3DD-09AF-40A1-97E6-93CB4829B9E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3017F3DD-09AF-40A1-97E6-93CB4829B9E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3017F3DD-09AF-40A1-97E6-93CB4829B9E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3017F3DD-09AF-40A1-97E6-93CB4829B9E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{58BC1C75-7AB2-4CA7-952A-E0864B106E42} = {582340DE-E8EE-4D56-B758-052E3F32D5B1}
 		{9E6C8E9B-B466-4966-A39E-E02F7A140138} = {BA5D8DFE-2EB2-4BD1-8B19-AA61391EB2EC}
 		{1D702328-B1F2-485F-BD38-079973AD8CA5} = {582340DE-E8EE-4D56-B758-052E3F32D5B1}
+		{3017F3DD-09AF-40A1-97E6-93CB4829B9E6} = {7B9E728B-FCFA-414B-8BB3-8CB644CE49AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5961AD9D-14B9-41E4-9A7B-F7777F2AE466}
