@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace HeroesAndMonsters.Data.Models.Heroes
 {
-    public class Archer
+    public class Archer : Hero
     {
+        public Archer(int str, int agi, int intel, int range) 
+            : base(str, agi, intel, range)
+        {
+        }
     }
 }
