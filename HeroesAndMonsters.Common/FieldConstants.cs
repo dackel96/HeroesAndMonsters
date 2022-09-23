@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HeroesAndMonsters.Common
+﻿namespace HeroesAndMonsters.Common
 {
     public static class FieldConstants
     {
         public const int RowSize = 10;
 
         public const int ColumnSize = 10;
+
+        public const int PositionX = 50;
+
+        public const int PositionY = 5;
 
         public const char Symbol = '▒';
 

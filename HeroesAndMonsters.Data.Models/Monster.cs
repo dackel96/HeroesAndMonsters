@@ -15,11 +15,14 @@ namespace HeroesAndMonsters.Data.Models
 
         public int Intelligence { get; set; }
 
+        public char Symbol
+            => FieldConstants.MonsterSymbol;
+
         public void StrengthGenerator()
         {
             Random random = new Random();
 
-            this.Strength = random.Next(MonsterConstants.LowerBound,MonsterConstants.UpperBound);
+            this.Strength = random.Next(MonsterConstants.LowerBound, MonsterConstants.UpperBound);
 
             this.Agility = random.Next(MonsterConstants.LowerBound, MonsterConstants.UpperBound);
 

@@ -15,7 +15,7 @@ namespace HeroesAndMonsters.Data
         public HeroesAndMonstersContext(DbContextOptions options)
             : base(options) { }
 
-        public DbSet<LogHero> LogHeroes { get; set; }
+        public DbSet<LogHero> LogHeroes { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

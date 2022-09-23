@@ -20,6 +20,8 @@ namespace HeroesAndMonsters.Data.Models.Heroes
             this.Range = range;
         }
 
+        public virtual char Symbol { get; set; }
+
         public int Strenght { get; set; }
               
         public int Agility { get; set; }
@@ -39,7 +41,10 @@ namespace HeroesAndMonsters.Data.Models.Heroes
 
         public virtual void Attack() { }
 
-        public virtual void Move() { }
+        public void Move() 
+        {
+           
+        }
 
         public void Setup()
         {

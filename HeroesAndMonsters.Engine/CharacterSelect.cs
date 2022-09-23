@@ -1,13 +1,7 @@
-﻿using HeroesAndMonsters.Common;
-using HeroesAndMonsters.Data.Models.Heroes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HeroesAndMonsters.Engine
+﻿namespace HeroesAndMonsters.Engine
 {
+    using HeroesAndMonsters.Common;
+    using HeroesAndMonsters.Data.Models.Heroes;
     public class CharacterSelect
     {
         private Hero? hero;
@@ -65,6 +59,7 @@ namespace HeroesAndMonsters.Engine
                 this.addInt = value;
             }
         }
+
         public void Select()
         {
             Console.SetCursorPosition(50, 1);

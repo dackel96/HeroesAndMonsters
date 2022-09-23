@@ -1,5 +1,6 @@
 ﻿using HeroesAndMonsters.Common;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,7 @@ namespace HeroesAndMonsters.Data.Models.Heroes
             : base(str, agi, intel, range)
         {
         }
+        public override char Symbol
+            => FieldConstants.WarriorSymbol;
     }
 }
