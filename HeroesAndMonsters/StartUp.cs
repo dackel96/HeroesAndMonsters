@@ -10,11 +10,6 @@ public class StartUp
         MainMenu menu = new MainMenu();
         menu.Start();
 
-        CharacterSelect cs = new CharacterSelect();
-        cs.Select();
-
-        Player newSession = new Player(cs.Hero);
-
         InGame game = new InGame();
         game.Run();
     }

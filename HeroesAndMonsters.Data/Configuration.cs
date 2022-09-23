@@ -8,6 +8,6 @@ namespace HeroesAndMonsters.Data
 {
     public class Configuration
     {
-        public static string ConnectionString = @"Server=.;Database=Trucks;Trusted_Connection=True";
+        public static string ConnectionString = @"Server=DESKTOP-73BH94J\SQLEXPRESS;Integrated Security=true;Database=HeroesAndMonsters;TrustServerCertificate=True;";
     }
 }

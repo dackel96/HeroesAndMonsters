@@ -73,7 +73,7 @@ namespace HeroesAndMonsters.Data.Models
 
             for (int i = 0; i < board.GetLength(0); i++)
             {
-                Console.SetCursorPosition(50, 4 + i);
+                Console.SetCursorPosition(50, 0 + i);
                 for (int z = 0; z < board.GetLength(1); z++)
                 {
                     Console.Write(board[i, z]);

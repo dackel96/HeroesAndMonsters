@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HeroesAndMonsters.Data.Models\HeroesAndMonsters.Data.Models.csproj" />
+    <ProjectReference Include="..\HeroesAndMonsters.Data\HeroesAndMonsters.Data.csproj" />
   </ItemGroup>
 
 </Project>

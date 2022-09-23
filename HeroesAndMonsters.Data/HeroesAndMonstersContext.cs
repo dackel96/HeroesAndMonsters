@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HeroesAndMonsters.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace HeroesAndMonsters.Data
         public HeroesAndMonstersContext(DbContextOptions options)
             : base(options) { }
 
+        public DbSet<LogHero> LogHeroes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

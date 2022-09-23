@@ -10,6 +10,7 @@ namespace HeroesAndMonsters.Engine
 {
     public class CharacterSelect
     {
+        private Hero? hero;
 
         private int addStr;
 
@@ -17,7 +18,53 @@ namespace HeroesAndMonsters.Engine
 
         private int addInt;
 
-        public Hero Hero { get; private set; } = null!;
+        public Hero? Hero
+        {
+            get
+            {
+                return this.hero;
+            }
+            private set
+            {
+                this.hero = value;
+            }
+        }
+
+        public int AddStr
+        {
+            get
+            {
+                return this.addStr;
+            }
+            private set
+            {
+                this.addStr = value;
+            }
+        }
+
+        public int AddAgi
+        {
+            get
+            {
+                return this.addAgi;
+            }
+            private set
+            {
+                this.addAgi = value;
+            }
+        }
+
+        public int AddInt
+        {
+            get
+            {
+                return this.addInt;
+            }
+            private set
+            {
+                this.addInt = value;
+            }
+        }
         public void Select()
         {
             Console.SetCursorPosition(50, 1);
@@ -45,7 +92,7 @@ namespace HeroesAndMonsters.Engine
                 Console.Clear();
                 Console.SetCursorPosition(50, 0);
                 Console.WriteLine(">>>WARRIOR<<<");
-                this.Hero = new Warrior(WarriorConstants.BaseSTR, WarriorConstants.BaseAGI, WarriorConstants.BaseINT, WarriorConstants.BaseRange);
+                this.hero = new Warrior(WarriorConstants.BaseSTR, WarriorConstants.BaseAGI, WarriorConstants.BaseINT, WarriorConstants.BaseRange);
                 this.BuffUp();
             }
             else if (read.KeyChar.ToString() == "2")
@@ -53,7 +100,7 @@ namespace HeroesAndMonsters.Engine
                 Console.Clear();
                 Console.SetCursorPosition(50, 0);
                 Console.WriteLine(">>>ARCHER<<<");
-                this.Hero = new Archer(ArcherConstants.BaseSTR, ArcherConstants.BaseAGI, ArcherConstants.BaseINT, ArcherConstants.BaseRange);
+                this.hero = new Archer(ArcherConstants.BaseSTR, ArcherConstants.BaseAGI, ArcherConstants.BaseINT, ArcherConstants.BaseRange);
                 this.BuffUp();
             }
             else if (read.KeyChar.ToString() == "3")
@@ -61,7 +108,7 @@ namespace HeroesAndMonsters.Engine
                 Console.Clear();
                 Console.SetCursorPosition(50, 0);
                 Console.WriteLine(">>>MAGE<<<");
-                this.Hero = new Mage(MageConstants.BaseSTR, MageConstants.BaseAGI, MageConstants.BaseINT, MageConstants.BaseRange);
+                this.hero = new Mage(MageConstants.BaseSTR, MageConstants.BaseAGI, MageConstants.BaseINT, MageConstants.BaseRange);
                 this.BuffUp();
             }
         }
@@ -120,6 +167,7 @@ namespace HeroesAndMonsters.Engine
                         else
                         {
                             points -= strPlus;
+                            this.addStr += strPlus;
                             continue;
                         }
                     }
@@ -144,6 +192,7 @@ namespace HeroesAndMonsters.Engine
                         else
                         {
                             points -= agiPlus;
+                            this.addAgi += agiPlus;
                             continue;
                         }
                     }
@@ -167,6 +216,7 @@ namespace HeroesAndMonsters.Engine
                         else
                         {
                             points -= intPlus;
+                            this.addInt += intPlus;
                             continue;
                         }
                     }
@@ -178,10 +228,14 @@ namespace HeroesAndMonsters.Engine
                         Console.Clear();
                     }
                 }
+                if (this.Hero != null)
+                {
+                    this.Hero.Strenght += this.AddStr;
+                    this.Hero.Agility += this.AddAgi;
+                    this.Hero.Intelligence += this.AddInt;
 
-                this.Hero.Strenght += this.addStr;
-                this.Hero.Agility += this.addAgi;
-                this.Hero.Intelligence += this.addInt;
+                    this.Hero.Setup();
+                }
 
                 Console.Clear();
                 Console.SetCursorPosition(50, 1);
@@ -189,10 +243,14 @@ namespace HeroesAndMonsters.Engine
                 Console.SetCursorPosition(50, 2);
                 Console.WriteLine("To Start press any key!");
                 Console.ReadKey(true);
-
             }
             else if (read.KeyChar.ToString().ToUpper() == "N")
             {
+                if (this.Hero != null)
+                {
+                    this.Hero.Setup();
+                }
+
                 Console.Clear();
                 Console.SetCursorPosition(50, 1);
                 Console.WriteLine("No added stats!");
