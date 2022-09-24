@@ -1,4 +1,5 @@
-﻿using HeroesAndMonsters.Data.Models.Interface;
+﻿using HeroesAndMonsters.Common;
+using HeroesAndMonsters.Data.Models.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace HeroesAndMonsters.Data.Models.Heroes
 {
     public abstract class Hero : IHero, IRace
     {
-        public Hero(int str,int agi,int intel,int range)
+        public Hero(int str, int agi, int intel, int range)
         {
             this.Strenght = str;
 
@@ -18,22 +19,26 @@ namespace HeroesAndMonsters.Data.Models.Heroes
             this.Intelligence = intel;
 
             this.Range = range;
+
+            this.Position = new Cell(FieldConstants.PositionX, FieldConstants.PositionY);
         }
+
+        public Cell Position { get; set; }
 
         public virtual char Symbol { get; set; }
 
         public int Strenght { get; set; }
-              
+
         public int Agility { get; set; }
-             
+
         public int Intelligence { get; set; }
-               
+
         public int Range { get; set; }
-              
+
         public int HP { get; set; }
-             
+
         public int MP { get; set; }
-               
+
         public int DMG { get; set; }
 
         public bool IsDeath
@@ -41,9 +46,9 @@ namespace HeroesAndMonsters.Data.Models.Heroes
 
         public virtual void Attack() { }
 
-        public void Move() 
+        public void Move()
         {
-           
+
         }
 
         public void Setup()

@@ -57,7 +57,10 @@
             }
         }
 
-        public void Matrix()
+        public char[,] Matrix
+            => this.Creation();
+
+        private char[,] Creation()
         {
             char[,] board = new char[this.Row, this.Column];
             for (int row = 0; row < board.GetLength(0); row++)
@@ -69,7 +72,11 @@
                     board[row, col] = symb;
                 }
             }
+            return board;
+        }
 
+        public void Draw(char[,] board)
+        {
             for (int i = 0; i < board.GetLength(0); i++)
             {
                 Console.SetCursorPosition(FieldConstants.PositionX, FieldConstants.PositionY + i);
@@ -79,11 +86,6 @@
                 }
                 Console.WriteLine();
             }
-        }
-
-        public static bool IsInRange(char[,] board, int row, int col)
-        {
-            return row >= 0 && row < board.GetLength(0) && col >= 0 && col < board.GetLength(1);
         }
     }
 }

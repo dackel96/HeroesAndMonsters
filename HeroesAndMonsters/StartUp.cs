@@ -8,25 +8,29 @@ public class StartUp
 {
     private static void Main(string[] args)
     {
-        var db = new HeroesAndMonstersContext();
-        db.Database.EnsureCreated();
+        //var db = new HeroesAndMonstersContext();
+        //db.Database.EnsureCreated();
 
-        Field board = new Field();
+        //Field board = new Field();
 
-        MainMenu menu = new MainMenu();
-        menu.Start();
+        //MainMenu menu = new MainMenu();
+        //menu.Start();
 
-        CharacterSelect session = new CharacterSelect();
+        //CharacterSelect session = new CharacterSelect();
 
-        session.Select();
+        //session.Select();
 
-        if (session.Hero != null)
-        {
-            ImportLog(db, session.Hero);
+        //if (session.Hero != null)
+        //{
+        //    ImportLog(db, session.Hero);
 
-            InGame game = new InGame(board, session.Hero);
-            game.Run();
-        }
+        //    InGame game = new InGame(board, session.Hero);
+        //    game.Run();
+        //}
+        Field testboard = new Field();
+        Hero testHero = new Mage(10,10,10,10);
+        InGame gameTest = new InGame(testboard,testHero);
+        gameTest.Run();
     }
     public static void ImportLog(HeroesAndMonstersContext context, Hero hero)
     {

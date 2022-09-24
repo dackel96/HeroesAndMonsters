@@ -110,6 +110,7 @@
 
         public void BuffUp()
         {
+            Console.Clear();
             Console.SetCursorPosition(30, 1);
             Console.WriteLine("Would you like to buff up your stats before starting?");
 
@@ -141,22 +142,45 @@
                 {
                     Console.SetCursorPosition(50, 1);
                     Console.WriteLine($"Remaining Points: {points}");
+
+                    Console.SetCursorPosition(50, 3);
+                    Console.WriteLine("Add to Strenght:");
+
+                    Console.SetCursorPosition(50, 4);
+                    Console.WriteLine("Add to Agility:");
+
+                    Console.SetCursorPosition(50, 5);
+                    Console.WriteLine("Add to Intelligence:");
                     if (flagSTR && buttonSTR)
                     {
                         buttonSTR = false;
-                        Console.SetCursorPosition(50, 3);
-                        Console.WriteLine("Add to Strenght:");
-                        Console.SetCursorPosition(68, 3);
+                        Console.SetCursorPosition(67, 3);
                         read = Console.ReadKey();
+                        if (read.KeyChar != '1' && read.KeyChar != '2' && read.KeyChar != '3' && read.KeyChar != '0')
+                        {
+                            Console.Clear();
+                            Console.SetCursorPosition(50, 7);
+                            Console.WriteLine($"You can add only positive number which is not above 3");
+                            Console.SetCursorPosition(50, 9);
+                            Console.WriteLine("Go back to BuffUp ( Y | N ):");
+                            read = Console.ReadKey(true);
+                            if (read.KeyChar.ToString().ToUpper() == "Y")
+                            {
+                                this.BuffUp();
+                            }
+                            break;
+                        }
                         int strPlus = int.Parse(read.KeyChar.ToString());
+
                         if (strPlus == 3)
                         {
                             flagSTR = false;
                             buttonSTR = false;
                         }
-                        if (strPlus > 3 || strPlus < 0)
+                        if (strPlus > points)
                         {
-                            Console.WriteLine($"You have only {points} remaining!");
+                            Console.SetCursorPosition(50, 7);
+                            Console.WriteLine($"You have only {points} points remaining!!");
                             continue;
                         }
                         else
@@ -170,18 +194,32 @@
                     {
                         buttonAGI = false;
 
-                        Console.SetCursorPosition(50, 4);
-                        Console.WriteLine("Add to Agility:");
-                        Console.SetCursorPosition(65, 4);
+                        
+                        Console.SetCursorPosition(66, 4);
                         read = Console.ReadKey();
+                        if (read.KeyChar != '1' && read.KeyChar != '2' && read.KeyChar != '3' && read.KeyChar != '0')
+                        {
+                            Console.Clear();
+                            Console.SetCursorPosition(50, 7);
+                            Console.WriteLine($"You can add only positive number which is not above 3");
+                            Console.SetCursorPosition(50, 9);
+                            Console.WriteLine("Go back to BuffUp ( Y | N ):");
+                            read = Console.ReadKey(true);
+                            if (read.KeyChar.ToString().ToUpper() == "Y")
+                            {
+                                this.BuffUp();
+                            }
+                            break;
+                        }
                         int agiPlus = int.Parse(read.KeyChar.ToString());
                         if (agiPlus == 3)
                         {
                             flagAGI = false;
                         }
-                        if (agiPlus > 3 || agiPlus < 0)
+                        if (agiPlus > points)
                         {
-                            Console.WriteLine($"You have only {points} remaining!");
+                            Console.SetCursorPosition(50, 7);
+                            Console.WriteLine($"You have only {points} points remaining!");
                             continue;
                         }
                         else
@@ -194,18 +232,32 @@
                     if (flagINT && buttonINT)
                     {
                         buttonINT = false;
-                        Console.SetCursorPosition(50, 5);
-                        Console.WriteLine("Add to Intelligence:");
-                        Console.SetCursorPosition(75, 5);
+                        
+                        Console.SetCursorPosition(71, 5);
                         read = Console.ReadKey();
+                        if (read.KeyChar != '1' && read.KeyChar != '2' && read.KeyChar != '3' && read.KeyChar != '0')
+                        {
+                            Console.Clear();
+                            Console.SetCursorPosition(50, 7);
+                            Console.WriteLine($"You can add only positive number which is not above 3");
+                            Console.SetCursorPosition(50, 9);
+                            Console.WriteLine("Go back to BuffUp ( Y | N ):");
+                            read = Console.ReadKey(true);
+                            if (read.KeyChar.ToString().ToUpper() == "Y")
+                            {
+                                this.BuffUp();
+                            }
+                            break;
+                        }
                         int intPlus = int.Parse(read.KeyChar.ToString());
                         if (intPlus == 3)
                         {
                             flagINT = false;
                         }
-                        if (intPlus > 3 || intPlus < 0)
+                        if (intPlus > points)
                         {
-                            Console.WriteLine($"You have only {points} remaining!");
+                            Console.SetCursorPosition(50, 7);
+                            Console.WriteLine($"You have only {points} points remaining!");
                             continue;
                         }
                         else
@@ -222,7 +274,19 @@
                         buttonINT = true;
                         Console.Clear();
                     }
+                    Console.Clear();
                 }
+                if (points != 0)
+                {
+                    if (this.Hero != null)
+                    {
+                        this.Hero.Setup();
+                    }
+                    Console.WriteLine("No added stats!");
+                    Console.WriteLine("To Start press any key!");
+                    Console.ReadKey(true);
+                }
+                
                 if (this.Hero != null)
                 {
                     this.Hero.Strenght += this.AddStr;
