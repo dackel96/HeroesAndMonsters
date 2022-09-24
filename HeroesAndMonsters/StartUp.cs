@@ -29,7 +29,7 @@ public class StartUp
         //}
         Field testboard = new Field();
         Hero testHero = new Mage(10,10,10,10);
-        InGame gameTest = new InGame(testboard,testHero);
+        InGame gameTest = new InGame(testHero);
         gameTest.Run();
     }
     public static void ImportLog(HeroesAndMonstersContext context, Hero hero)

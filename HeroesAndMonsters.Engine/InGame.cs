@@ -13,11 +13,9 @@ namespace HeroesAndMonsters.Engine
 
         private Hero hero;
 
-        private Field map;
-
         private Monster monster;
 
-        public InGame(Field map, Hero hero)
+        public InGame(Hero hero)
         {
             this.position = new Dictionary<Direction, Cell>()
             {
@@ -40,8 +38,6 @@ namespace HeroesAndMonsters.Engine
                 {Direction.DownRight,new Cell(1,1) },
             };
 
-            this.map = map;
-
             this.monster = new Monster();
 
             this.hero = hero;
@@ -49,52 +45,71 @@ namespace HeroesAndMonsters.Engine
 
         public void Run()
         {
+            char[,] board = new char[FieldConstants.RowSize,FieldConstants.ColumnSize];
+
             while (true)
             {
-                int row = 0;
-                int col = 0;
-                map.Draw(this.map.Matrix);
-                Console.SetCursorPosition(this.hero.Position.X, this.hero.Position.Y);
-                Console.WriteLine(this.hero.Symbol);
-                this.GetDirection();
-                if (TryMove())
+                for (int row = 0; row < board.GetLength(0); row++)
                 {
-                    if (direction == Direction.Up)
+                    char symb = FieldConstants.Symbol;
+
+                    for (int col = 0; col < board.GetLength(1); col++)
                     {
-                        this.hero.Position.Y -= this.position[direction].Y;
+                        board[row, col] = symb;
                     }
-                    if (direction == Direction.Down)
+                }
+                board[this.hero.Position.X, this.hero.Position.Y] = this.hero.Symbol;
+                Cell oldCell = new Cell(this.hero.Position.X,this.hero.Position.Y);
+                for (int i = 0; i < board.GetLength(0); i++)
+                {
+                    Console.SetCursorPosition(FieldConstants.PositionX, FieldConstants.PositionY + i);
+                    for (int z = 0; z < board.GetLength(1); z++)
                     {
-                        this.hero.Position.Y += this.position[direction].Y;
+                        Console.Write(board[i, z]);
                     }
-                    if (direction == Direction.Left)
-                    {
-                        this.hero.Position.X -= this.position[direction].X;
-                    }
-                    if (direction == Direction.Right)
-                    {
-                        this.hero.Position.X += this.position[direction].X;
-                    }
-                    if (direction == Direction.UpLeft)
-                    {
-                        this.hero.Position.X -= this.position[direction].X;
-                        this.hero.Position.Y -= this.position[direction].Y;
-                    }
-                    if (direction == Direction.UpRight)
-                    {
-                        this.hero.Position.X += this.position[direction].X;
-                        this.hero.Position.Y -= this.position[direction].Y;
-                    }
-                    if (direction == Direction.DownLeft)
-                    {
-                        this.hero.Position.X -= this.position[direction].X;
-                        this.hero.Position.Y += this.position[direction].Y;
-                    }
-                    if (direction == Direction.DownRight)
-                    {
-                        this.hero.Position.X += this.position[direction].X;
-                        this.hero.Position.Y += this.position[direction].Y;
-                    }
+                    Console.WriteLine();
+                }
+                this.GetDirection();
+                if (direction == Direction.Up)
+                {
+                    this.hero.Position.X--;
+                }
+                else if (direction == Direction.Down)
+                {
+                    this.hero.Position.X++;
+                }
+                else if (direction == Direction.Left)
+                {
+                    this.hero.Position.Y--;
+                }
+                else if (direction == Direction.Right)
+                {
+                    this.hero.Position.Y++;
+                }
+                else if (direction == Direction.UpLeft)
+                {
+                    this.hero.Position.X--;
+                    this.hero.Position.Y--;
+                }
+                else if (direction == Direction.UpRight)
+                {
+                    this.hero.Position.Y++;
+                    this.hero.Position.X--;
+                }
+                else if (direction == Direction.DownLeft)
+                {
+                    this.hero.Position.Y--;
+                    this.hero.Position.X++;
+                }
+                else if (direction == Direction.DownRight)
+                {
+                    this.hero.Position.X++;
+                    this.hero.Position.Y++;
+                }
+                if (!IsInRange(board,this.hero.Position.X,this.hero.Position.Y))
+                {
+                    this.hero.Position.X = oldCell.X;
+                    this.hero.Position.Y = oldCell.Y;
                 }
             }
 
@@ -105,52 +120,45 @@ namespace HeroesAndMonsters.Engine
         {
             return row >= 0 && row < board.GetLength(0) && col >= 0 && col < board.GetLength(1);
         }
-
-        private bool TryMove()
-        {
-
-            if (IsInRange(this.map.Matrix, hero.Position.X, hero.Position.Y))
-            {
-                return true;
-            }
-            return false;
-        }
-
         private void GetDirection()
         {
-            Console.SetCursorPosition(this.hero.Position.X, this.hero.Position.Y);
+            //Console.SetCursorPosition(this.hero.Position.X, this.hero.Position.Y);
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             if (keyInfo.KeyChar.ToString().ToUpper() == "A")
             {
                 direction = Direction.Left;
             }
-            if (keyInfo.KeyChar.ToString().ToUpper() == "D")
+            else if (keyInfo.KeyChar.ToString().ToUpper() == "D")
             {
                 direction = Direction.Right;
             }
-            if (keyInfo.KeyChar.ToString().ToUpper() == "W")
+            else if (keyInfo.KeyChar.ToString().ToUpper() == "W")
             {
                 direction = Direction.Up;
             }
-            if (keyInfo.KeyChar.ToString().ToUpper() == "S")
+            else if (keyInfo.KeyChar.ToString().ToUpper() == "S")
             {
                 direction = Direction.Down;
             }
-            if (keyInfo.KeyChar.ToString().ToUpper() == "Q")
+            else if (keyInfo.KeyChar.ToString().ToUpper() == "Q")
             {
                 direction = Direction.UpLeft;
             }
-            if (keyInfo.KeyChar.ToString().ToUpper() == "E")
+            else if (keyInfo.KeyChar.ToString().ToUpper() == "E")
             {
                 direction = Direction.UpRight;
             }
-            if (keyInfo.KeyChar.ToString().ToUpper() == "Z")
+            else if (keyInfo.KeyChar.ToString().ToUpper() == "Z")
             {
                 direction = Direction.DownLeft;
             }
-            if (keyInfo.KeyChar.ToString().ToUpper() == "X")
+            else if (keyInfo.KeyChar.ToString().ToUpper() == "X")
             {
                 direction = Direction.DownRight;
+            }
+            else
+            {
+                this.GetDirection();
             }
         }
     }

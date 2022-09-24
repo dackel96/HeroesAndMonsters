@@ -6,9 +6,9 @@
 
         public const int ColumnSize = 10;
 
-        public const int PositionX = 0;
+        public const int PositionX = 1;
 
-        public const int PositionY = 0;
+        public const int PositionY = 1;
 
         public const char Symbol = '▒';
 
