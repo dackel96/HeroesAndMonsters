@@ -39,8 +39,6 @@ namespace HeroesAndMonsters.Data.Models
             this.Health = this.Strength * 5;
             this.Mana = this.Intelligence * 3;
             this.Damage = this.Agility * 2;
-
-
         }
 
     }
