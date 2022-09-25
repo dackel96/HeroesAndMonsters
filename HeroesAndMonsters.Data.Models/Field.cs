@@ -10,7 +10,7 @@
             this.Board = board;
         }
         public char[,] Board { get; set; }
-        public void Creation(int heroX, int heroY, char heroSymbol)
+        public void Creation(int heroX, int heroY, char heroSymbol, List<Monster> monsters)
         {
 
 
@@ -23,19 +23,29 @@
                     this.Board[row, col] = symb;
                 }
             }
-
+            foreach (var monster in monsters)
+            {
+                this.Board[monster.Position.X, monster.Position.Y] = FieldConstants.MonsterSymbol;
+            }
             this.Board[heroX, heroY] = heroSymbol;
+        }
+
+        public Monster SpawnMonster()
+        {
+            Random random = new Random();
+
+            Monster newMonster = new Monster();
+
+            newMonster.StrengthGenerator();
+            newMonster.Position = new Cell(random.Next(1, 10), random.Next(1, 10));
+
+            this.Board[newMonster.Position.X, newMonster.Position.Y] = FieldConstants.MonsterSymbol;
+
+            return newMonster;
         }
 
         public void Draw()
         {
-            Random random = new Random();
-
-            int monsterRow = random.Next(1, 10);
-
-            int monsterCol = random.Next(1, 10);
-
-            this.Board[monsterRow, monsterCol] = FieldConstants.MonsterSymbol;
 
             for (int i = 0; i < this.Board.GetLength(0); i++)
             {
@@ -50,6 +60,51 @@
         public bool IsInRange(int row, int col)
         {
             return row >= 0 && row < this.Board.GetLength(0) && col >= 0 && col < this.Board.GetLength(1);
+        }
+
+        public bool RangeOfHero(int row, int col, int range)
+        {
+            for (int i = 1; i < range; i++)
+            {
+
+                if (this.Board[row + i, col] == FieldConstants.Symbol) //UP
+                {
+                    return false;
+                }
+                else if (this.Board[row - i, col] == FieldConstants.Symbol) //DOWN
+                {
+                    return false;
+                }
+                else if (this.Board[row, col - i] == FieldConstants.Symbol) //LEFT
+                {
+                    return false;
+                }
+                else if (this.Board[row, col + i] == FieldConstants.Symbol) //RIGHT
+                {
+                    return false;
+                }
+                else if (this.Board[row - i, col - i] == FieldConstants.Symbol) //DOWNLEFT
+                {
+                    return false;
+                }
+                else if (this.Board[row - i, col + i] == FieldConstants.Symbol) //DOWNRIGHT
+                {
+                    return false;
+                }
+                else if (this.Board[row + i, col - i] == FieldConstants.Symbol) //UPLEFT
+                {
+                    return false;
+                }
+                else if (this.Board[row - i, col + i] == FieldConstants.Symbol) //UPRIGHT
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

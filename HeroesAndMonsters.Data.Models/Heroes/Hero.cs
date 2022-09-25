@@ -44,9 +44,13 @@ namespace HeroesAndMonsters.Data.Models.Heroes
         public bool IsDeath
             => this.HP == 0 ? true : false;
 
-        public void Attack() 
+        public void Attack(Monster monster) 
         {
-            
+            monster.Health -= this.DMG;
+            if (monster.Health < 0)
+            {
+                monster.Health = 0;
+            }
         }
 
         public void Setup()

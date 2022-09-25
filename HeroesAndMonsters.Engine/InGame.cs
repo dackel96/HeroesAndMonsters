@@ -2,6 +2,7 @@
 using HeroesAndMonsters.Data.Models;
 using HeroesAndMonsters.Data.Models.Enums;
 using HeroesAndMonsters.Data.Models.Heroes;
+using System.Reflection.Metadata.Ecma335;
 
 namespace HeroesAndMonsters.Engine
 {
@@ -41,34 +42,43 @@ namespace HeroesAndMonsters.Engine
             this.monster = new Monster();
 
             this.hero = hero;
+
+            this.Board = new char[FieldConstants.RowSize, FieldConstants.ColumnSize];
+
+            this.Field = new Field(this.Board);
+
+            this.Monsters = new List<Monster>();
         }
+
+        public char[,] Board { get; set; }
+
+        public Field Field { get; set; }
+
+        public List<Monster> Monsters { get; set; }
 
         public void Run()
         {
-            char[,] board = new char[FieldConstants.RowSize, FieldConstants.ColumnSize];
-
-            Field field = new Field(board);
 
             while (true)
             {
+                Monster newMonster = this.Field.SpawnMonster();
+
+                this.Monsters.Add(newMonster);
+
                 Console.SetCursorPosition(0, 0);
 
                 Console.WriteLine($"Health: {this.hero.HP}    Mana: {this.hero.MP}");
 
-                field.Creation(this.hero.Position.X, this.hero.Position.Y, this.hero.Symbol);
+                this.Field.Creation(this.hero.Position.X, this.hero.Position.Y, this.hero.Symbol, this.Monsters);
 
                 position[Direction.None].X = this.hero.Position.X;
                 position[Direction.None].Y = this.hero.Position.Y;
 
-                field.Draw();
+                this.Field.Draw();
 
-                this.GetDirection();
+                this.Decision();
 
-                if (!field.IsInRange(this.hero.Position.X, this.hero.Position.Y))
-                {
-                    this.hero.Position.X = position[Direction.None].X;
-                    this.hero.Position.Y = position[Direction.None].Y;
-                }
+
             }
 
         }
@@ -84,16 +94,33 @@ namespace HeroesAndMonsters.Engine
             ConsoleKeyInfo read = Console.ReadKey(true);
             if (read.KeyChar.ToString() == "1")
             {
-                if (true)
+                if (this.Field.RangeOfHero(this.hero.Position.X, this.hero.Position.Y, this.hero.Range))
                 {
                     Console.SetCursorPosition(0, 17);
                     Console.WriteLine("No available targets in your range");
                 }
-
+                else
+                {
+                    if (this.Monsters.FirstOrDefault() != null)
+                    {
+                        Monster monster = this.Monsters.First();
+                        this.hero.Attack(monster);
+                        if (monster.IsDeath)
+                        {
+                            this.Monsters.Remove(monster);
+                        }
+                    }
+                }
             }
             else if (read.KeyChar.ToString() == "2")
             {
+                this.GetDirection();
 
+                if (!this.Field.IsInRange(this.hero.Position.X, this.hero.Position.Y))
+                {
+                    this.hero.Position.X = position[Direction.None].X;
+                    this.hero.Position.Y = position[Direction.None].Y;
+                }
             }
             else
             {

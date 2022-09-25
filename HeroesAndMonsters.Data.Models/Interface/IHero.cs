@@ -16,7 +16,5 @@ namespace HeroesAndMonsters.Data.Models.Interface
 
         public bool IsDeath { get;}
 
-        public void Attack();
-
     }
 }
