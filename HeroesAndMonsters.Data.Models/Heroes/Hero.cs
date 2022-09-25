@@ -46,8 +46,7 @@ namespace HeroesAndMonsters.Data.Models.Heroes
 
         public void Attack() 
         {
-            Console.SetCursorPosition(0, 17);
-            Console.WriteLine("No available targets in your range");
+            
         }
 
         public void Setup()

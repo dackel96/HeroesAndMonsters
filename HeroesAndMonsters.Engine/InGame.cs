@@ -57,7 +57,8 @@ namespace HeroesAndMonsters.Engine
 
                 field.Creation(this.hero.Position.X, this.hero.Position.Y, this.hero.Symbol);
 
-                Cell oldCell = new Cell(this.hero.Position.X, this.hero.Position.Y);
+                position[Direction.None].X = this.hero.Position.X;
+                position[Direction.None].Y = this.hero.Position.Y;
 
                 field.Draw();
 
@@ -65,9 +66,9 @@ namespace HeroesAndMonsters.Engine
 
                 if (!field.IsInRange(this.hero.Position.X, this.hero.Position.Y))
                 {
-                    this.hero.Position.X = oldCell.X;
-                    this.hero.Position.Y = oldCell.Y;
-                } 
+                    this.hero.Position.X = position[Direction.None].X;
+                    this.hero.Position.Y = position[Direction.None].Y;
+                }
             }
 
         }
@@ -88,14 +89,11 @@ namespace HeroesAndMonsters.Engine
                     Console.SetCursorPosition(0, 17);
                     Console.WriteLine("No available targets in your range");
                 }
-                else
-                {
-                    this.hero.Attack();
-                }
+
             }
             else if (read.KeyChar.ToString() == "2")
             {
-                
+
             }
             else
             {
