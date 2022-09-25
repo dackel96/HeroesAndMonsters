@@ -44,11 +44,10 @@ namespace HeroesAndMonsters.Data.Models.Heroes
         public bool IsDeath
             => this.HP == 0 ? true : false;
 
-        public virtual void Attack() { }
-
-        public void Move()
+        public void Attack() 
         {
-
+            Console.SetCursorPosition(0, 17);
+            Console.WriteLine("No available targets in your range");
         }
 
         public void Setup()

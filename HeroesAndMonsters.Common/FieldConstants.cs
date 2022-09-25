@@ -18,6 +18,6 @@
 
         public const char ArcherSymbol = '#';
 
-        public const char MonsterSymbol = '◙';
+        public const char MonsterSymbol = 'O';//'◙';
     }
 }

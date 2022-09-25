@@ -1,91 +1,55 @@
 ﻿namespace HeroesAndMonsters.Data.Models
 {
     using HeroesAndMonsters.Common;
+    using System.Runtime.CompilerServices;
+
     public class Field
     {
-        private int row;
-
-        private int column;
-
-        private char symbol;
-
-        public Field()
+        public Field(char[,] board)
         {
-            this.row = FieldConstants.RowSize;
-
-            this.column = FieldConstants.ColumnSize;
-
-            this.symbol = FieldConstants.Symbol;
+            this.Board = board;
         }
-
-        public int Row
+        public char[,] Board { get; set; }
+        public void Creation(int heroX, int heroY, char heroSymbol)
         {
-            get
+
+
+            for (int row = 0; row < this.Board.GetLength(0); row++)
             {
-                return this.row;
-            }
+                char symb = FieldConstants.Symbol;
 
-            private set
-            {
-                this.row = value;
-            }
-        }
-
-        public int Column
-        {
-            get
-            {
-                return this.column;
-            }
-
-            private set
-            {
-                this.column = value;
-            }
-        }
-
-        public char Symbol
-        {
-            get
-            {
-                return this.symbol;
-            }
-
-            private set
-            {
-                this.symbol = value;
-            }
-        }
-
-        public char[,] Matrix
-            => this.Creation();
-
-        private char[,] Creation()
-        {
-            char[,] board = new char[this.Row, this.Column];
-            for (int row = 0; row < board.GetLength(0); row++)
-            {
-                char symb = this.Symbol;
-
-                for (int col = 0; col < board.GetLength(1); col++)
+                for (int col = 0; col < this.Board.GetLength(1); col++)
                 {
-                    board[row, col] = symb;
+                    this.Board[row, col] = symb;
                 }
             }
-            return board;
+
+            this.Board[heroX, heroY] = heroSymbol;
         }
 
-        public void Draw(char[,] board)
+        public void Draw()
         {
-            for (int i = 0; i < board.GetLength(0); i++)
+            Random random = new Random();
+
+            int monsterRow = random.Next(1, 10);
+
+            int monsterCol = random.Next(1, 10);
+
+            this.Board[monsterRow, monsterCol] = FieldConstants.MonsterSymbol;
+
+            for (int i = 0; i < this.Board.GetLength(0); i++)
             {
                 Console.SetCursorPosition(FieldConstants.PositionX, FieldConstants.PositionY + i);
-                for (int z = 0; z < board.GetLength(1); z++)
+                for (int z = 0; z < this.Board.GetLength(1); z++)
                 {
-                    Console.Write(board[i, z]);
+                    Console.Write(this.Board[i, z]);
                 }
                 Console.WriteLine();
             }
+        }
+        public bool IsInRange(int row, int col)
+        {
+            return row >= 0 && row < this.Board.GetLength(0) && col >= 0 && col < this.Board.GetLength(1);
         }
     }
 }

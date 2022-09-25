@@ -45,120 +45,154 @@ namespace HeroesAndMonsters.Engine
 
         public void Run()
         {
-            char[,] board = new char[FieldConstants.RowSize,FieldConstants.ColumnSize];
+            char[,] board = new char[FieldConstants.RowSize, FieldConstants.ColumnSize];
+
+            Field field = new Field(board);
 
             while (true)
             {
-                for (int row = 0; row < board.GetLength(0); row++)
-                {
-                    char symb = FieldConstants.Symbol;
+                Console.SetCursorPosition(0, 0);
 
-                    for (int col = 0; col < board.GetLength(1); col++)
-                    {
-                        board[row, col] = symb;
-                    }
-                }
-                board[this.hero.Position.X, this.hero.Position.Y] = this.hero.Symbol;
-                Cell oldCell = new Cell(this.hero.Position.X,this.hero.Position.Y);
-                for (int i = 0; i < board.GetLength(0); i++)
-                {
-                    Console.SetCursorPosition(FieldConstants.PositionX, FieldConstants.PositionY + i);
-                    for (int z = 0; z < board.GetLength(1); z++)
-                    {
-                        Console.Write(board[i, z]);
-                    }
-                    Console.WriteLine();
-                }
+                Console.WriteLine($"Health: {this.hero.HP}    Mana: {this.hero.MP}");
+
+                field.Creation(this.hero.Position.X, this.hero.Position.Y, this.hero.Symbol);
+
+                Cell oldCell = new Cell(this.hero.Position.X, this.hero.Position.Y);
+
+                field.Draw();
+
                 this.GetDirection();
-                if (direction == Direction.Up)
-                {
-                    this.hero.Position.X--;
-                }
-                else if (direction == Direction.Down)
-                {
-                    this.hero.Position.X++;
-                }
-                else if (direction == Direction.Left)
-                {
-                    this.hero.Position.Y--;
-                }
-                else if (direction == Direction.Right)
-                {
-                    this.hero.Position.Y++;
-                }
-                else if (direction == Direction.UpLeft)
-                {
-                    this.hero.Position.X--;
-                    this.hero.Position.Y--;
-                }
-                else if (direction == Direction.UpRight)
-                {
-                    this.hero.Position.Y++;
-                    this.hero.Position.X--;
-                }
-                else if (direction == Direction.DownLeft)
-                {
-                    this.hero.Position.Y--;
-                    this.hero.Position.X++;
-                }
-                else if (direction == Direction.DownRight)
-                {
-                    this.hero.Position.X++;
-                    this.hero.Position.Y++;
-                }
-                if (!IsInRange(board,this.hero.Position.X,this.hero.Position.Y))
+
+                if (!field.IsInRange(this.hero.Position.X, this.hero.Position.Y))
                 {
                     this.hero.Position.X = oldCell.X;
                     this.hero.Position.Y = oldCell.Y;
-                }
+                } 
             }
 
         }
 
-
-        public static bool IsInRange(char[,] board, int row, int col)
+        public void Decision()
         {
-            return row >= 0 && row < board.GetLength(0) && col >= 0 && col < board.GetLength(1);
+            Console.SetCursorPosition(0, 12);
+            Console.WriteLine("Choose Action");
+            Console.SetCursorPosition(0, 14);
+            Console.WriteLine("1) Attack");
+            Console.SetCursorPosition(0, 15);
+            Console.WriteLine("2) Move");
+            ConsoleKeyInfo read = Console.ReadKey(true);
+            if (read.KeyChar.ToString() == "1")
+            {
+                if (true)
+                {
+                    Console.SetCursorPosition(0, 17);
+                    Console.WriteLine("No available targets in your range");
+                }
+                else
+                {
+                    this.hero.Attack();
+                }
+            }
+            else if (read.KeyChar.ToString() == "2")
+            {
+                
+            }
+            else
+            {
+                this.Decision();
+            }
         }
+
         private void GetDirection()
         {
-            //Console.SetCursorPosition(this.hero.Position.X, this.hero.Position.Y);
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             if (keyInfo.KeyChar.ToString().ToUpper() == "A")
             {
                 direction = Direction.Left;
             }
+
             else if (keyInfo.KeyChar.ToString().ToUpper() == "D")
             {
                 direction = Direction.Right;
             }
+
             else if (keyInfo.KeyChar.ToString().ToUpper() == "W")
             {
                 direction = Direction.Up;
             }
+
             else if (keyInfo.KeyChar.ToString().ToUpper() == "S")
             {
                 direction = Direction.Down;
             }
+
             else if (keyInfo.KeyChar.ToString().ToUpper() == "Q")
             {
                 direction = Direction.UpLeft;
             }
+
             else if (keyInfo.KeyChar.ToString().ToUpper() == "E")
             {
                 direction = Direction.UpRight;
             }
+
             else if (keyInfo.KeyChar.ToString().ToUpper() == "Z")
             {
                 direction = Direction.DownLeft;
             }
+
             else if (keyInfo.KeyChar.ToString().ToUpper() == "X")
             {
                 direction = Direction.DownRight;
             }
+
             else
             {
                 this.GetDirection();
+            }
+
+            if (direction == Direction.Up)
+            {
+                this.hero.Position.X -= this.hero.Range;
+            }
+
+            else if (direction == Direction.Down)
+            {
+                this.hero.Position.X += this.hero.Range;
+            }
+
+            else if (direction == Direction.Left)
+            {
+                this.hero.Position.Y -= this.hero.Range;
+            }
+
+            else if (direction == Direction.Right)
+            {
+                this.hero.Position.Y += this.hero.Range;
+            }
+
+            else if (direction == Direction.UpLeft)
+            {
+                this.hero.Position.X -= this.hero.Range;
+                this.hero.Position.Y -= this.hero.Range;
+            }
+
+            else if (direction == Direction.UpRight)
+            {
+                this.hero.Position.Y += this.hero.Range;
+                this.hero.Position.X -= this.hero.Range;
+            }
+
+            else if (direction == Direction.DownLeft)
+            {
+                this.hero.Position.Y -= this.hero.Range;
+                this.hero.Position.X += this.hero.Range;
+            }
+
+            else if (direction == Direction.DownRight)
+            {
+                this.hero.Position.X += this.hero.Range;
+                this.hero.Position.Y += this.hero.Range;
             }
         }
     }

@@ -26,9 +26,9 @@ public class StartUp
 
         //    InGame game = new InGame(board, session.Hero);
         //    game.Run();
-        //}
-        Field testboard = new Field();
-        Hero testHero = new Mage(10,10,10,10);
+        //
+        Hero testHero = new Mage(5,5,5,5);
+        testHero.Setup();
         InGame gameTest = new InGame(testHero);
         gameTest.Run();
     }
