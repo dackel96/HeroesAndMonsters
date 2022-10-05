@@ -101,6 +101,7 @@ namespace HeroesAndMonsters.Engine
                 }
                 else
                 {
+
                     if (this.Monsters.FirstOrDefault() != null)
                     {
                         Monster monster = this.Monsters.First();

@@ -17,6 +17,7 @@ namespace HeroesAndMonsters.Data.Models
         public int Health { get; set; }
         public int Mana { get; set; }
         public int Damage { get; set; }
+        
 
         public bool IsDeath
             => this.Health == 0 ? true : false;
